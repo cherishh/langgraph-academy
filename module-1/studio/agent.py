@@ -4,7 +4,6 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
 
-from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -42,7 +41,9 @@ def divide(a: int, b: int) -> float:
 tools = [add, multiply, divide]
 
 # Define LLM with bound tools
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    model="gpt-4o")
 llm_with_tools = llm.bind_tools(tools)
 
 # System message
